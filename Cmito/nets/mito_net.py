@@ -46,7 +46,7 @@ class ConvBlock(nn.Module):
 	      in_channels: number of channels in input (1st) feature map
 	      out_channels: number of channels in output feature maps
 	  """
-		
+	  
 		super(ConvBlock, self).__init__()
 		self.conv1 = conv3x3(in_channels, out_channels)
 		self.conv2 = conv3x3(out_channels, out_channels)
