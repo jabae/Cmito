@@ -23,13 +23,13 @@ class UpConv2x2(nn.Module):
 		self.conv = nn.Conv2d(channels, channels // 2,
 													kernel_size=2, stride=1, padding=0, bias=True)
 
-		def forward(self, x):
+	def forward(self, x):
 			
-			x = F.interpolate(x, scale_factor=2, mode='nearest')
-			x = F.pad(x, (0,1,0,1))
-			x = self.conv(x)
-			
-			return x
+		x = F.interpolate(x, scale_factor=2, mode='nearest')
+		x = F.pad(x, (0,1,0,1))
+		x = self.conv(x)
+		
+		return x
 
 
 def concat(xh, xv):
@@ -47,18 +47,18 @@ class ConvBlock(nn.Module):
 	      out_channels: number of channels in output feature maps
 	  """
 
-	  super(ConvBlock, self).__init__()
-	  self.conv1 = conv3x3(in_channels, out_channels)
-	  self.conv2 = conv3x3(out_channels, out_channels)
-	  self.conv3 = conv3x3(out_channels, out_channels)
-	  self.norm = nn.BatchNorm2d(out_channels, track_running_stats=False)
+		super(ConvBlock, self).__init__()
+		self.conv1 = conv3x3(in_channels, out_channels)
+		self.conv2 = conv3x3(out_channels, out_channels)
+		self.conv3 = conv3x3(out_channels, out_channels)
+		self.norm = nn.BatchNorm2d(out_channels, track_running_stats=False)
 
 	def forward(self, x):
 
-  	x = F.relu(self.norm(self.conv1(x)))
-  	x = F.relu(self.norm(self.conv2(x)))
-  	x = F.relu(self.norm(self.conv3(x)))
-  	
+		x = F.relu(self.norm(self.conv1(x)))
+		x = F.relu(self.norm(self.conv2(x)))
+		x = F.relu(self.norm(self.conv3(x)))
+
 		return x
 
 
