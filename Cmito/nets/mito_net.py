@@ -58,7 +58,7 @@ class ConvBlock(nn.Module):
   	x = F.relu(self.norm(self.conv1(x)))
   	x = F.relu(self.norm(self.conv2(x)))
   	x = F.relu(self.norm(self.conv3(x)))
-		
+  	
 		return x
 
 
