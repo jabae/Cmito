@@ -41,11 +41,11 @@ def concat(xh, xv):
 class ConvBlock(nn.Module):
 
 	def __init__(self, in_channels, out_channels):
-	  """
-	  Args:
-	      in_channels: number of channels in input (1st) feature map
-	      out_channels: number of channels in output feature maps
-	  """
+		"""
+		Args:
+		in_channels: number of channels in input (1st) feature map
+		out_channels: number of channels in output feature maps
+		"""
 
 		super(ConvBlock, self).__init__()
 		self.conv1 = conv3x3(in_channels, out_channels)
@@ -107,11 +107,11 @@ class UpConvBlock(nn.Module):
 		self.norm = nn.BatchNorm2d(out_channels, track_running_stats=False)
 
 	def forward(self, xh, xv):
-    """
-    Args:
-        xh: torch Variable, activations from same resolution feature maps (gray arrow in diagram)
-        xv: torch Variable, activations from lower resolution feature maps (green arrow in diagram)
-    """
+		"""
+		Args:
+		xh: torch Variable, activations from same resolution feature maps (gray arrow in diagram)
+		xv: torch Variable, activations from lower resolution feature maps (green arrow in diagram)
+		"""
 		
 		xv = self.upconv(xv)
 		x = concat(xh, xv)
