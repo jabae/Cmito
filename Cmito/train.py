@@ -178,7 +178,7 @@ if __name__ == "__main__":
     opt.imgs_intv = 500
     opt.warm_up = 100
     
-    opt.eval_iter = 25
+    opt.eval_iter = 15
     opt.eval_intv = 1000
     opt.no_eval = True
 
