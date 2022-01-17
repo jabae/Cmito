@@ -53,7 +53,7 @@ def merge(img_stack, bbox_list, sect_sz, ovlap_sz):
 
 	for i in range(len(bbox_list)):
 
-		img_patch = img[ovlap_sz[0]//2:-ovlap_sz[0]//2,
+		img_patch = img_stack[ovlap_sz[0]//2:-ovlap_sz[0]//2,
 										ovlap_sz[1]//2:-ovlap_sz[1]//2,i]
 
 		b = bbox_list[i]
@@ -163,8 +163,8 @@ if __name__ == "__main__":
 		# Run inference
 		pred_stack = detect(opt)
 
-		pred_sect = merge(pred_stack)
-		dst_vol[:,:,zidx] = pred_sect
+		pred_sect = merge(pred_stack, bbox_list, img_sz, ovlap_sz)
+		dst_vol[:,:,zidx] = pred_sect.reshape(img_sz+(1,))
 
 
 		print("{} / {} sections complete!".format(i+1, nsect))
