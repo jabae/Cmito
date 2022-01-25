@@ -1,0 +1,11 @@
+## Python3.8
+numpy
+scipy
+matplotlib
+h5py
+
+torch
+torchvision
+tensorboardX
+scikit-build
+cloud-volume
