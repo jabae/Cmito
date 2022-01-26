@@ -12,8 +12,6 @@ import torch.nn as nn
 from time import time
 
 
-downsample = nn.AvgPool2d(kernel_size=(2,2), stride=(2,2), padding=0)
-
 def worker_init_fn(worker_id):
     # Each worker already has its own random state (Torch).
     seed = torch.IntTensor(1).random_()[0]
@@ -41,8 +39,6 @@ class Dataset(torch.utils.data.Dataset):
         sample = {"image": image}
 
         sample["image"] = torch.from_numpy(sample["image"].copy())
-        for i in range(self.mip):
-            sample["image"] = downsample(sample["image"])
             
         return sample
 

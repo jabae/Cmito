@@ -14,9 +14,6 @@ from train.augment.augmentor import Augmentor
 from time import time
 
 
-downsample_avg = nn.AvgPool2d(kernel_size=(2,2), stride=(2,2), padding=0)
-downsample_max = nn.MaxPool2d(kernel_size=(2,2), stride=(2,2), padding=0)
-
 def worker_init_fn(worker_id):
     # Each worker already has its own random state (Torch).
     seed = torch.IntTensor(1).random_()[0]
@@ -51,10 +48,6 @@ class Dataset(torch.utils.data.Dataset):
         sample = self.augmentor(sample)
         for k in sample.keys():
             sample[k] = torch.from_numpy(sample[k].copy())
-
-        # for i in range(self.mip):
-        #     sample["image"] = downsample_avg(sample["image"])
-        #     sample["mask"] = downsample_max(sample["mask"])
 
         return sample
 

@@ -57,8 +57,13 @@ def merge(img_stack, bbox_list, sect_sz, ovlap_sz):
 										ovlap_sz[1]//2:-ovlap_sz[1]//2,i]
 
 		b = bbox_list[i]
+
+		img_patch_orig = img_sect[b[0][0]+ovlap_sz[0]//2:b[1][0]-ovlap_sz[0]//2,
+															b[0][1]+ovlap_sz[1]//2:b[1][1]-ovlap_sz[1]//2]
+		img_patch_new = img_patch*(img_patch>=img_patch_orig) + img_patch_orig*(img_patch<img_patch_orig)
+		
 		img_sect[b[0][0]+ovlap_sz[0]//2:b[1][0]-ovlap_sz[0]//2,
-						b[0][1]+ovlap_sz[1]//2:b[1][1]-ovlap_sz[1]//2] = img_patch
+						b[0][1]+ovlap_sz[1]//2:b[1][1]-ovlap_sz[1]//2] = img_patch_new
 
 
 	return img_sect
@@ -85,9 +90,16 @@ if __name__ == "__main__":
 		help="Input patch size")
 	parser.add_argument("--overlap_size", nargs=2, required=True, type=int,
 		help="Overlap size")
+	parser.add_argument("--mip", required=True, type=int,
+		help="Mip level")
+	parser.add_argument("--res", nargs=3, type=int,
+		help="Resolution of output volume")
 
 
 	opt = parser.parse_args()
+
+	mip = opt.mip
+	res = opt.res
 
 	# Model directory
 	opt.model_dir = opt.exp_dir + 'model/'
@@ -97,7 +109,7 @@ if __name__ == "__main__":
 	opt.out_spec = ["mask"]
 
 	# GPUs
-	opt.gpu_ids = ["0"]
+	opt.gpu_ids = ["9"]
 	os.environ['CUDA_VISIBLE_DEVICES'] = ','.join(opt.gpu_ids)
 
 	# Sizes
@@ -112,20 +124,20 @@ if __name__ == "__main__":
 	# Cloud volumes
 	# Input
 	src_path = opt.src_path
-	src_vol = CloudVolume(src_path, mip=1, parallel=True, progress=False)
+	src_vol = CloudVolume(src_path, mip=mip, parallel=True, progress=False)
 	print(">>> Input volume loaded.")
 
 	# Output
 	dst_path = opt.dst_path
 	info = CloudVolume.create_new_info(
 		num_channels    = 1,
-    layer_type      = 'image',
-    data_type       = 'uint8',
-    encoding        = 'raw', 
-    resolution      = [2, 2, 50], 
-    voxel_offset    = [bbox_st[0], bbox_st[1], bbox_st[2]], 
-    chunk_size      = [ 256, 256, 1 ], # units are voxels
-    volume_size     = [ img_sz[0], img_sz[1], nsect ], # e.g. a cubic millimeter dataset
+		layer_type      = 'image',
+		data_type       = 'uint8',
+		encoding        = 'raw', 
+		resolution      = [res[0], res[1], res[2]], 
+		voxel_offset    = [bbox_st[0], bbox_st[1], bbox_st[2]], 
+		chunk_size      = [ 256, 256, 1 ], # units are voxels
+		volume_size     = [ img_sz[0], img_sz[1], nsect ], # e.g. a cubic millimeter dataset
 	)
 
 	dst_vol = CloudVolume(dst_path, parallel=True, progress=False, info=info)
@@ -158,7 +170,6 @@ if __name__ == "__main__":
 		)
 		opt.test_data = TEST
 		opt.n_test = len(patch_list)
-		opt.mip = 0
 
 		# Run inference
 		pred_stack = detect(opt)
