@@ -165,7 +165,7 @@ if __name__ == "__main__":
     opt.mip = 0
     opt.n_train = opt.train_data.image.shape[-1]
 
-    opt.gpu_ids = ["0","1","2","3","4","5","6","7"]
+    opt.gpu_ids = ["0"]
 
     opt.batch_size = len(opt.gpu_ids)
     opt.num_workers = len(opt.gpu_ids)
