@@ -1,0 +1,3 @@
+[submodule "detectEM"]
+	path = detectEM
+	url = https://github.com/jabae/detectEM.git
