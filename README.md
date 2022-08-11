@@ -4,9 +4,11 @@
 
 ## Setup
 ```
+# Clone repository
 git clone https://github.com/jabae/Cmito.git
 cd Cmito
 
+# Install requirements
 pip install -r requirements
 ```
 
