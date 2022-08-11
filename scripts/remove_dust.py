@@ -95,6 +95,9 @@ def remove_dust(seg, size_thr):
 
 		seg[:,:,i] = seg_sect_new
 
+		if (i+1) % 100==0 or (i+1)<=10:
+			print(f"{i+1} / {nsec}")
+
 	return seg
 
 
@@ -122,4 +125,4 @@ if __name__ == "__main__":
 	mito_seg = remove_dust(mito_seg, opt.size_thr)
 
 	# Save volume
-	save_vol(opt.outpath, mito_seg, res)
+	save_volume(opt.outpath, mito_seg, res)
