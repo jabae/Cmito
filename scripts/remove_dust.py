@@ -60,7 +60,7 @@ def save_volume(path, vol, res):
 	  volume_size     = vol.shape, # e.g. a cubic millimeter dataset
 		)
 
-		cloudvol = CloudVolume(path, parallel=True, progress=True, info=info)
+		cloudvol = CloudVolume(path, parallel=1, progress=True, info=info)
 		cloudvol.commit_info()
 
 		cloudvol[:,:,:] = vol
