@@ -1,11 +1,14 @@
-## Python3.8
+## Python3.10
+
 numpy
 scipy
+tifffile
 matplotlib
 h5py
+connected-components-3d
+cloud-volume
 
 torch
 torchvision
 tensorboardX
 scikit-build
-cloud-volume
