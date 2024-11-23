@@ -22,7 +22,7 @@ def segment_mito(pred):
 	# Filter dust and segment
 	sthr = 5
 
-	pred_cc = cc3d.connected_components(pred_denoise, connectivity=26)
+	pred_cc = cc3d.connected_components(pred_thr, connectivity=26)
 
 	segid_list, seg_size = np.unique(pred_cc, return_counts=True)
 	segid_list = segid_list[1:]; seg_size = seg_size[1:]
