@@ -17,15 +17,9 @@ def read_image(img_path):
 		img = image.imread(img_path)
 		img = (img*255).astype("uint8")
 
-		if len(img.shape)==3:
-			img = img[:,:,2]
-
 	elif img_path[-3:] == "tif":
 
 		img = tif.imread(img_path)
-
-		if len(img.shape)==3:
-			img = img[:,:,2]
 
 	elif img_path[:3] == "gs:":
 
