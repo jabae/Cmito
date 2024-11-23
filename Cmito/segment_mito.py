@@ -19,22 +19,7 @@ def segment_mito(pred):
 	pthr = 0.5*255 
 	pred_thr = (pred>pthr).astype("uint8")
 
-	# Denoise
-	kw = 10
-	dthr = 0.6
-	h = img.shape[0]
-	w = img.shape[1]
-
-	kernel = np.ones((kw,kw), dtype="uint8")
-
-	pred_denoise = np.copy(pred_thr)
-	for i in range(h-kw):
-		for j in range(w-kw):
-
-			if np.mean(img[i:i+kw,j:j+kw])<dthr:
-				pred_denoise[i+kw//2,j+kw//2] = 0
-
-	# Filter dust
+	# Filter dust and segment
 	sthr = 5
 
 	pred_cc = cc3d.connected_components(pred_denoise, connectivity=26)
