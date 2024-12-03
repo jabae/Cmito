@@ -26,7 +26,7 @@ python Cmito/detect_nucleus.py --image [test_data/test_image.png] --model [model
 - `models/dataset5_model104000.chkpt`: Trained on EM images from Witvliet et al. (2021)[^1] Dataset 5. 
 - `models/dataset6_model166000.chkpt`: Trained on EM images from Witvliet et al. (2021)[^1] Dataset 6. 
 - `models/dataset8_model122000.chkpt`: Trained on EM images from Witvliet et al. (2021)[^1] Dataset 8. 
-- `models/dauer_model735000.chkpt`: Trained on EM images from Yim et al. (2021)[^2] dauer dataset.
+- `models/dauer_model188000.chkpt`: Trained on EM images from Yim et al. (2021)[^2] dauer dataset.
 
 *Select appropriate model that your image is similar to the images each model has been trained on.
 
